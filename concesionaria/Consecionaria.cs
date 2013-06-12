@@ -77,13 +77,17 @@ namespace Concesionaria
                 }
             }*/
 
-            foreach(Vehiculos v in this){
-                if (v.PrecioVenta <= hastaPrecio)
-                {
+            List<Vehiculos> tmp = ListaVehiculos.FindAll( e => e.PrecioVenta <= hastaPrecio);
+            
+            foreach(Vehiculos v in tmp){
+                //if (v.PrecioVenta <= hastaPrecio)
+               // {
                     Console.WriteLine("\n - Marca:{0} Modelo:{1} Precio:{2}", v.Marca, v.Modelo, v.PrecioVenta);
-                }
+                //}
             }
             Console.WriteLine("\n---------------------------------------------------------------");
+
+            
         }
 
         public void buscarVehiculoPorAnio(int anio)
@@ -91,12 +95,14 @@ namespace Concesionaria
             Console.WriteLine("\n---------------------------------------------------------------");
             Console.WriteLine("\n[{0}] Listar Vehiculo1s por Anio: {1}.\n", this.Nombre,anio);
 
-            foreach (Vehiculos v in this)
+            List<Vehiculos> tmp = ListaVehiculos.FindAll(e => e.Anio == anio);
+
+            foreach (Vehiculos v in tmp)
             {
-                if (v.Anio == anio)
-                {
+                //if (v.Anio == anio)
+                //{
                     Console.WriteLine("\n - Anio:{0} Marca:{1} Modelo:{2} Precio:{3}",v.Anio, v.Marca, v.Modelo, v.PrecioVenta);
-                }
+                //}
             }
             Console.WriteLine("\n---------------------------------------------------------------");
         }

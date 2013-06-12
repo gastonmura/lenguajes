@@ -5,6 +5,17 @@ using System.Text;
 
 namespace Concesionaria
 {
+    public class errorPrecioNegativo : Exception
+    {
+        public override string Message
+        {
+            get
+            {
+                return "ERROR los precios no pueden ser negativos!";
+            }
+        }
+    }
+
     public enum Combustible { Nafta = 1, Gasoil = 2 }
 
     class Vehiculos: IComparable
@@ -81,7 +92,12 @@ namespace Concesionaria
         public float PrecioVenta
         {
             get { return _precioVenta; }
-            set { _precioVenta = value; }
+            
+            set {
+                if (value <= 0)
+                    throw new errorPrecioNegativo();
+                _precioVenta = value;
+            }
         }
 
         //[METODOS DE ICOMPARABLE]
@@ -116,6 +132,20 @@ namespace Concesionaria
         {
             Vehiculos.cmp = Vehiculos.compararPorAnio;
         }
+
+
+        //[TODO Comparar por modelo]
+        //implemento la funcion de comparacion que vamos a usar para ordenar
+        private static int compararPorModelo(Vehiculos a, Vehiculos b)
+        {
+            return a.Modelo.CompareTo(b.Modelo);
+        }
+        //[TODO Comparar por anio] creo los seter para poder setearle al delegado varias funciones de comparacion
+        public static void setCompararPorModelo()
+        {
+            Vehiculos.cmp = Vehiculos.compararPorModelo;
+        }
+
 
         //[GENERICO] refdefino el compareTo haciendo uso del delegado
         public int CompareTo(object obj)
